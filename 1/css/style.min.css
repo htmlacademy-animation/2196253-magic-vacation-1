@@ -1418,6 +1418,7 @@ img {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .form__label {
@@ -1452,7 +1453,7 @@ img {
   margin-right: 3rem;
   padding: 0 5.6rem;
   height: 6rem;
-  width: calc(100% - 21rem);
+  width: 0;
   text-transform: uppercase;
   font: inherit;
   font-size: 2.4rem;
@@ -1461,11 +1462,30 @@ img {
   border: 0;
   border-radius: 3rem;
   outline: none;
-  transform: translateX(100vw);
-  transition: transform ease-out 0.3s;
+  transition: width ease-out 0.5s;
 }
 .active .form__field {
-  transform: translateX(0);
+  width: calc(100% - 21rem);
+}
+@media (min-width: 2000px) {
+  .active .form__field {
+    width: calc(100% - 210px);
+  }
+}
+@media (orientation: portrait) {
+  .active .form__field {
+    width: calc(100% - 5rem);
+  }
+}
+@media (max-width: 1024px) and (orientation: landscape) {
+  .active .form__field {
+    width: calc(100% - 9rem);
+  }
+}
+@media (max-width: 768px) and (orientation: landscape) {
+  .active .form__field {
+    width: calc(100% - 5rem);
+  }
 }
 .form__field:focus {
   border: 1px solid #a67ee5;
@@ -1475,7 +1495,7 @@ img {
     margin-right: 30px;
     padding: 0 56px;
     height: 60px;
-    width: calc(100% - 210px);
+    width: 0;
     font-size: 24px;
     border-radius: 30px;
   }
@@ -1484,28 +1504,28 @@ img {
   .form__field {
     margin-right: 1rem;
     padding: 0 2.5rem;
-    width: calc(100% - 5rem);
+    width: 0;
     height: 4rem;
     font-size: 1.6rem;
   }
 }
 @media (max-width: 1024px) and (orientation: landscape) {
   .form__field {
-    width: calc(100% - 9rem);
+    width: 0;
   }
 }
 @media (max-width: 768px) and (orientation: landscape) {
   .form__field {
     margin-right: 1rem;
     padding: 0 2.5rem;
-    width: calc(100% - 5rem);
+    width: 0;
     height: 4rem;
     font-size: 1.6rem;
   }
 }
 
 .form__button {
-  flex-grow: 1;
+  width: 18rem;
 }
 @media (orientation: portrait) {
   .form__button {
@@ -1834,11 +1854,11 @@ img {
   transition: all ease-in 0.3s;
   transition-delay: 1s;
   opacity: 0;
-  top: 20px;
+  transform: translateY(2rem);
 }
 .active .intro__message {
   opacity: 1;
-  top: 0;
+  transform: translateY(0);
 }
 @media (min-width: 2000px) {
   .intro__message {
@@ -2198,9 +2218,11 @@ img {
   bottom: 0;
   height: 2px;
   background-color: #ffffff;
-  width: 0;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: right;
   right: 0;
-  transition: width 0.2s linear;
+  transition: transform 0.2s linear;
 }
 @media (max-width: 1024px) and (orientation: portrait) {
   .page-header__menu a::after {
@@ -2224,10 +2246,8 @@ img {
   outline: none;
 }
 .page-header__menu a:hover::after, .page-header__menu a:focus::after {
-  display: block;
-  width: 100%;
-  left: 0;
-  right: unset;
+  transform: scaleX(1);
+  transform-origin: left;
   opacity: 1;
   background-color: #a67ee5;
 }
@@ -3669,11 +3689,15 @@ img {
   font-size: 1.8rem;
   line-height: 2rem;
   opacity: 0;
-  transition: opacity ease-in-out 0.3s;
-  transition-delay: 0.4s;
+  transform: translateX(15%);
+  transition: opacity ease-in-out 0.3s, transform ease-out 0.3s;
+  visibility: hidden;
 }
 .swiper-slide-next .slider__item-text, .swiper-slide-active .slider__item-text {
   opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+  transition-delay: 0.4s, 0.4s;
 }
 @media (min-width: 2000px) {
   .slider__item-text {
